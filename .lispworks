@@ -1,0 +1,42 @@
+;;; -*- Mode: LISP; Syntax: COMMON-LISP; Package: CL-USER; Base: 10 -*-
+;;; $Header: /usr/local/cvsrep/lw-add-ons/.lispworks,v 1.31 2010-11-09 19:51:21 edi Exp $
+
+(in-package :cl-user)
+
+;;; make lispworks could detect the utf-8 encoded files.
+(defun utf-8-file-encoding (pathname ef-spec buffer length)
+  (declare (ignore pathname buffer length))
+  (system:merge-ef-specs ef-spec '(:utf-8 :eol-style :lf)))
+(setq system:*file-encoding-detection-algorithm*
+      (substitute 'utf-8-file-encoding 'system:locale-file-encoding
+                  system:*file-encoding-detection-algorithm*))
+;;; ↑UTF-8を優先して読込みするように設定
+
+;;; UTF-8 + CRLFを指定する場合、有効にする
+;;;; modify editor if you want:
+;;;;   (setf (editor:variable-value "Input Format Default")
+;;;;         '(:utf-8 :eol-style :crlf))
+;;;;   (setf (editor:variable-value "Output Format Default")
+;;;;         '(:utf-8 :eol-style :crlf))
+
+(setf stream::*default-external-format* '(:utf-8 :eol-style :lf))
+
+(defun load-init-file (filename &optional (conf-dir ".lispworks-conf"))
+  (load (merge-pathnames
+         (make-pathname :directory `(:relative ,conf-dir)
+                        :name filename)
+         (user-homedir-pathname))))
+
+#+:win32
+;; to "fix" USER-HOMEDIR-PATHNAME
+;; see <http://support.microsoft.com/default.aspx?scid=kb;en-us;101507>
+(setf (lw:environment-variable "HOMEPATH") "\\Programs\\gnupack_devel-7.01\\home"
+      (lw:environment-variable "HOMEDRIVE") "C:")
+
+
+;(load (merge-pathnames ".lispworks-conf/init.lisp" (user-homedir-pathname)))
+(load-init-file "init")
+(load-init-file "rectangle-region")
+(load-init-file "bookmark")
+
+(editor::restore-bookmark)
