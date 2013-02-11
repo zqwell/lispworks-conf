@@ -30,7 +30,7 @@
 #+:win32
 ;; to "fix" USER-HOMEDIR-PATHNAME
 ;; see <http://support.microsoft.com/default.aspx?scid=kb;en-us;101507>
-(setf (lw:environment-variable "HOMEPATH") "\\Programs\\gnupack_devel-7.01\\home"
+(setf (lw:environment-variable "HOMEPATH") "\\Programs\\gpd\\home"
       (lw:environment-variable "HOMEDRIVE") "C:")
 
 

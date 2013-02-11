@@ -36,7 +36,7 @@
                            (editor::editor-input-style-logical-characters
                             editor::*emacs-input-style*))
 
-(change-directory "C:/Programs/gnupack_devel-7.01/home")
+(change-directory (user-homedir-pathname))
 
 ;;; The following lines added by ql:add-to-init-file:
 #-quicklisp
