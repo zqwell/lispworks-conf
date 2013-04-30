@@ -3,6 +3,121 @@
 
 (in-package :cl-user)
 
+#|
+;; Change Background Color for Lispworks Editor.
+(defun set-pane-background-colors (x)
+  (typecase x
+    (capi:echo-area-pane
+     (setf (capi:simple-pane-background x) (color:make-rgb 1.0 .67 0.67)))
+    (capi:collector-pane
+     (setf (capi:simple-pane-background x) (color:make-rgb .8 1.0 .8)))
+    (capi:listener-pane
+     (setf (capi:simple-pane-background x) (color:make-rgb .8 .8 1.0)))
+    (capi:editor-pane
+     (setf (capi:simple-pane-background x) (color:make-rgb .9 .9 .8)
+;        (capi::simple-pane-foreground x) :black
+         ))
+    (capi:tab-layout
+     (mapcar 'set-pane-background-colors (capi:tab-layout-panes x)))
+;    (capi:output-pane
+;     (setf (capi:simple-pane-background x) :black
+;        (capi::simple-pane-foreground x) :white))
+    ))
+
+(let ((*HANDLE-WARN-ON-REDEFINITION* :warn)
+      (*redefinition-action* :warn))
+  (defmethod capi:interface-display :before ((self lw-tools:listener))
+    (capi:map-pane-descendant-children
+     self 'set-pane-background-colors))
+  (defmethod capi:interface-display :before ((self lw-tools::help-interface))
+    (capi:map-pane-descendant-children
+     self 'set-pane-background-colors))
+  (defmethod capi:interface-display :before ((self lw-tools:editor))
+    (capi:map-pane-descendant-children
+     self 'set-pane-background-colors))
+  (defmethod capi:interface-display :before ((self lw-tools:output-browser))
+    (capi:map-pane-descendant-children
+     self 'set-pane-background-colors))
+  (defmethod capi:interface-display :before ((self lw-tools:shell))
+    (capi:map-pane-descendant-children
+     self 'set-pane-background-colors))
+  (defmethod capi:interface-display :before ((self lw-tools:inspector))
+    (capi:map-pane-descendant-children
+     self 'set-pane-background-colors))
+  )
+|#
+
+
+
+;; Change Background Color for Lispworks Editor.
+(defun set-pane-background-colors (x)
+  (typecase x
+    (capi:echo-area-pane
+     (setf (capi:simple-pane-background x) (color:make-rgb 1.0 .67 0.67)))
+    (capi:collector-pane
+     (setf (capi:simple-pane-background x) (color:make-rgb .8 1.0 .8)))
+    (capi:listener-pane
+     (setf (capi:simple-pane-background x) (color:make-rgb .8 .8 1.0)))
+    (capi:editor-pane
+     (setf (capi:simple-pane-background x) (color:make-rgb .9 .9 .8)
+;        (capi::simple-pane-foreground x) :black
+         ))
+    (capi:tab-layout
+     (mapcar 'set-pane-background-colors (capi:tab-layout-panes x)))
+;    (capi:output-pane
+;     (setf (capi:simple-pane-background x) :black
+;           (capi::simple-pane-foreground x) :white))
+    ))
+
+(defun set-pane-fonts (x)
+  (typecase x
+    (capi:list-panel
+     (setf (capi:titled-object-title-font x)
+           (gp:find-best-font x (gp:make-font-description :stock :system-font :size 18))
+           ;(capi:titled-object-message-font x)
+           ;(gp:find-best-font x (gp:make-font-description :stock :system-font :size 18))
+           (capi:simple-pane-font x)
+           (gp:find-best-font x (gp:make-font-description :stock :system-font :size 18))))
+    (capi:echo-area-pane
+     )
+    (capi:collector-pane
+     )
+    (capi:listener-pane
+     )
+    (capi:editor-pane
+     )
+    (capi:tab-layout
+     (mapcar 'set-pane-fonts (capi:tab-layout-panes x)))
+    (capi:switchable-layout
+     (mapcar 'set-pane-fonts (capi:switchable-layout-switchable-children x)))
+    ))
+
+(let ((*HANDLE-WARN-ON-REDEFINITION* :warn)
+      (*redefinition-action* :warn))
+  (defmethod capi:interface-display :before ((self lw-tools:listener))
+    (capi:map-pane-descendant-children
+     self 'set-pane-background-colors))
+  (defmethod capi:interface-display :before ((self lw-tools::help-interface))
+    (capi:map-pane-descendant-children
+     self 'set-pane-background-colors))
+  (defmethod capi:interface-display :before ((self lw-tools:editor))
+    (capi:map-pane-descendant-children
+     self 'set-pane-background-colors))
+  (defmethod capi:interface-display :after ((self lw-tools:editor))
+    (capi:map-pane-descendant-children
+     self 'set-pane-fonts))
+  (defmethod capi:interface-display :before ((self lw-tools:output-browser))
+    (capi:map-pane-descendant-children
+     self 'set-pane-background-colors))
+  (defmethod capi:interface-display :before ((self lw-tools:shell))
+    (capi:map-pane-descendant-children
+     self 'set-pane-background-colors))
+  (defmethod capi:interface-display :before ((self lw-tools:inspector))
+    (capi:map-pane-descendant-children
+     self 'set-pane-background-colors))
+  )
+
+
 #+(and (or :lispworks5 :lispworks6) :win32)
 (define-action "Initialize LispWorks Tools"
                "Dismiss Splash Screen Quickly"

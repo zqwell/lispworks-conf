@@ -10,6 +10,9 @@
 (setq system:*file-encoding-detection-algorithm*
       (substitute 'utf-8-file-encoding 'system:locale-file-encoding
                   system:*file-encoding-detection-algorithm*))
+(appendf system:*file-encoding-detection-algorithm*
+         '(system:detect-japanese-encoding-in-file
+           system:locale-file-encoding))
 ;;; ↑UTF-8を優先して読込みするように設定
 
 ;;; UTF-8 + CRLFを指定する場合、有効にする
