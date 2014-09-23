@@ -42,6 +42,8 @@
 (setf (lw:environment-variable "HOMEPATH") "\\Programs\\gpd\\home"
       (lw:environment-variable "HOMEDRIVE") "C:")
 
+(change-directory (user-homedir-pathname))
+
 ;;; Apply color theme.
 (load-init-file "lw-editor-color-theme\\editor-color-theme")
 ;; (editor-color-theme:color-theme "default")
@@ -51,8 +53,11 @@
 ;; (editor-color-theme:color-theme "solarized-dark")
 (editor-color-theme:color-theme "solarized-light")
 
+;;; loading files.
 (load-init-file "init")
 (load-init-file "rectangle-region")
 (load-init-file "bookmark")
+(load-init-file "commands")
+(load-init-file "keybindings")
 
 (editor::restore-bookmark)
