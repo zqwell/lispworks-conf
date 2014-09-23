@@ -143,6 +143,12 @@
                            (editor::editor-input-style-logical-characters
                             editor::*emacs-input-style*))
 
+;; Run GUI inspect when called from REPL
+(setf *inspect-through-gui* t)
+
+;; Jump to definition without highlight
+(setf editor:*source-found-action* '(nil nil))
+
 ;;; The following lines added by ql:add-to-init-file:
 #-quicklisp
 (let ((quicklisp-init (merge-pathnames "quicklisp\\setup.lisp" (user-homedir-pathname))))
