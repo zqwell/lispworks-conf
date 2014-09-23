@@ -48,7 +48,7 @@
 |#
 
 
-
+#|
 ;; Change Background Color for Lispworks Editor.
 (defun set-pane-background-colors (x)
   (typecase x
@@ -116,7 +116,7 @@
     (capi:map-pane-descendant-children
      self 'set-pane-background-colors))
   )
-
+|#
 
 #+(and (or :lispworks5 :lispworks6) :win32)
 (define-action "Initialize LispWorks Tools"
@@ -296,3 +296,18 @@
               (editor:line-offset start 1))))))                 ; move to next line
 
 (in-package :cl-user)
+
+;;;; sugar-project default setting
+(ql:quickload :sugar-project)
+(setf sugar-project:*author* "zqwell"
+      sugar-project:*email* "zqwell.ss@gmail.com"
+      sugar-project:*license* "LLGPL")
+(setf *skeleton-list*
+      `(
+        (:name :capi-standard
+         :description "CAPI standard skeleton."
+         :directory "~/cl-skeleton/capi/")
+        (:name :cl-project-default
+         :description "cl-project default skeleton."
+         :directory ,cl-project:*skeleton-directory*)
+        ))

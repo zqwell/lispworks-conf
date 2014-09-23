@@ -1,29 +1,35 @@
 ;;; -*- Mode: LISP; Syntax: COMMON-LISP; Package: CL-USER; Base: 10 -*-
-;;; $Header: /usr/local/cvsrep/lw-add-ons/.lispworks,v 1.31 2010-11-09 19:51:21 edi Exp $
 
 (in-package :cl-user)
 
-;;; make lispworks could detect the utf-8 encoded files.
+;;;; ------------------------------------------------------------------
+;;;; Setting for the Encoding.
+;;;; ------------------------------------------------------------------
+;;; To change the default encoding to UTF-8 for all file access.
 (defun utf-8-file-encoding (pathname ef-spec buffer length)
   (declare (ignore pathname buffer length))
   (system:merge-ef-specs ef-spec '(:utf-8 :eol-style :lf)))
+
 (setq system:*file-encoding-detection-algorithm*
       (substitute 'utf-8-file-encoding 'system:locale-file-encoding
                   system:*file-encoding-detection-algorithm*))
+
 (appendf system:*file-encoding-detection-algorithm*
          '(system:detect-japanese-encoding-in-file
            system:locale-file-encoding))
-;;; ↑UTF-8を優先して読込みするように設定
 
-;;; UTF-8 + CRLFを指定する場合、有効にする
-;;;; modify editor if you want:
+(setf stream::*default-external-format* '(:utf-8 :eol-style :lf))
+
+;;; If you want to use the encoding by UTF-8 and CRLF in the editor, uncomment the following.
 ;;;;   (setf (editor:variable-value "Input Format Default")
 ;;;;         '(:utf-8 :eol-style :crlf))
 ;;;;   (setf (editor:variable-value "Output Format Default")
 ;;;;         '(:utf-8 :eol-style :crlf))
 
-(setf stream::*default-external-format* '(:utf-8 :eol-style :lf))
 
+;;;; ------------------------------------------------------------------
+;;;; Loading configuration files.
+;;;; ------------------------------------------------------------------
 (defun load-init-file (filename &optional (conf-dir ".lispworks-conf"))
   (load (merge-pathnames
          (make-pathname :directory `(:relative ,conf-dir)
@@ -36,8 +42,15 @@
 (setf (lw:environment-variable "HOMEPATH") "\\Programs\\gpd\\home"
       (lw:environment-variable "HOMEDRIVE") "C:")
 
+;;; Apply color theme.
+(load-init-file "lw-editor-color-theme\\editor-color-theme")
+;; (editor-color-theme:color-theme "default")
+;; (editor-color-theme:color-theme "emacs")
+;; (editor-color-theme:color-theme "torte")
+;; (editor-color-theme:color-theme "plain")
+;; (editor-color-theme:color-theme "solarized-dark")
+(editor-color-theme:color-theme "solarized-light")
 
-;(load (merge-pathnames ".lispworks-conf/init.lisp" (user-homedir-pathname)))
 (load-init-file "init")
 (load-init-file "rectangle-region")
 (load-init-file "bookmark")
