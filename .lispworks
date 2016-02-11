@@ -2,6 +2,9 @@
 
 (in-package :cl-user)
 
+#+lispworks7
+(set-default-character-element-type 'character)
+
 ;;;; ------------------------------------------------------------------
 ;;;; Setting for the Encoding.
 ;;;; ------------------------------------------------------------------
@@ -30,7 +33,7 @@
 ;;;; ------------------------------------------------------------------
 ;;;; Loading configuration files.
 ;;;; ------------------------------------------------------------------
-(defun load-init-file (filename &optional (conf-dir ".lispworks-conf"))
+(defun load-init-file (filename &optional (conf-dir ".lwconf"))
   (load (merge-pathnames
          (make-pathname :directory `(:relative ,conf-dir)
                         :name filename)
@@ -39,7 +42,7 @@
 #+:win32
 ;; to "fix" USER-HOMEDIR-PATHNAME
 ;; see <http://support.microsoft.com/default.aspx?scid=kb;en-us;101507>
-(setf (lw:environment-variable "HOMEPATH") "\\Programs\\gpd\\home"
+(setf (lw:environment-variable "HOMEPATH") "\\home"
       (lw:environment-variable "HOMEDRIVE") "C:")
 
 (change-directory (user-homedir-pathname))

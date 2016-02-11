@@ -2,7 +2,8 @@
 
 (in-package :cl-user)
 
-(editor:bind-key "Insert Space and Show Arglist" "Space")
+#+:lw-add-ons
+(editor:bind-key "Insert Space and Show Arglist" #\Space)
 
 (editor:bind-key "Compile Defun" #("Control-c" "Control-c") :mode "Lisp")
 (editor:bind-key "Compile and Load Buffer File" #("Control-c" "Control-k") :mode "Lisp")
@@ -11,11 +12,15 @@
 (editor:bind-key "Apropos" #("Control-c" "Control-a"))
 
 (editor:bind-key "Toggle Trace" #("Control-c" "Control-t") :mode "Lisp")
+(editor:bind-key "Clear Listener" #("Control-c" "Control-t") :mode "Execute")
 
 (editor:bind-key "Evaluate Last Form And Inspect" #("Control-c" "i"))
 (editor:bind-key "Evaluate Last Form And Describe" #("Control-c" "d"))
 
-;;(editor:bind-key "Indent and Complete Symbol" #\Tab :mode "Lisp")
+(editor:bind-key "Set Mark And Highlight" "Control-@")
+(editor:bind-key "Set Mark And Highlight" "Control-Space")
+
+(editor:bind-key "Indent and Complete Symbol" #\Tab :mode "Lisp")
 
 (editor:bind-key "Edit Callers" #("Control-c" "<") :mode "Lisp")
 (editor:bind-key "Edit Callees" #("Control-c" ">") :mode "Lisp")
@@ -25,6 +30,7 @@
 (editor:bind-key "Show Documentation" "Ctrl-F5")
 
 (editor:bind-key "Indent New Line" #\Return :mode "Lisp")
+
 (editor:bind-key "Insert Parentheses For Selection" #\( :mode "Lisp")
 (editor:bind-key "Insert Double Quotes For Selection" #\" :mode "Lisp")
 (editor:bind-key "Move Over ()" #\) :mode "Lisp")

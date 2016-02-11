@@ -266,13 +266,13 @@
           (editor:un-kill-command (1+ (first selected-item))))))))
           ;;(editor:un-kill-command 1))))))
 
-(editor:bind-key "Kill Rectangle Region"  #\control-\W)
-(editor:bind-key "Save Rectangle Region"  #\meta-\W)
-(editor:bind-key "Yank Rectangle Region"  #\control-\Y)
-;(editor:bind-key "Select Kill Rectangle Ring" #\control-\meta-\Y)
-;(editor:bind-key "Select Kill Ring" #\control-\meta-\y)
-(editor:bind-key "Select Kill Rectangle Ring" #\meta-\Y)
-(editor:bind-key "Select Kill Ring" #\meta-\y)
+(editor:bind-key "Kill Rectangle Region"  "Control-W")
+(editor:bind-key "Save Rectangle Region"  "Meta-W")
+(editor:bind-key "Yank Rectangle Region"  "Control-Y")
+;(editor:bind-key "Select Kill Rectangle Ring" "Control-Meta-Y")
+;(editor:bind-key "Select Kill Ring" "Control-Meta-y")
+(editor:bind-key "Select Kill Rectangle Ring" "Meta-Y")
+(editor:bind-key "Select Kill Ring" "Meta-y")
 
 
 (in-package :cl-user)
