@@ -20,7 +20,7 @@
 (editor:bind-key "Set Mark And Highlight" "Control-@")
 (editor:bind-key "Set Mark And Highlight" "Control-Space")
 
-(editor:bind-key "Indent and Complete Symbol" #\Tab :mode "Lisp")
+;; (editor:bind-key "Indent and Complete Symbol" #\Tab :mode "Lisp")
 
 (editor:bind-key "Edit Callers" #("Control-c" "<") :mode "Lisp")
 (editor:bind-key "Edit Callees" #("Control-c" ">") :mode "Lisp")
