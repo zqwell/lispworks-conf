@@ -8,6 +8,14 @@
 #+lispworks7
 (set-default-character-element-type 'character)
 
+#+:win32
+;; to "fix" USER-HOMEDIR-PATHNAME
+;; see <http://support.microsoft.com/default.aspx?scid=kb;en-us;101507>
+(setf (lw:environment-variable "HOMEPATH") "\\Users\\satok\\"
+      (lw:environment-variable "HOMEDRIVE") "Z:")
+
+(change-directory (user-homedir-pathname))
+
 ;;;; ------------------------------------------------------------------
 ;;;; Loading configuration files.
 ;;;; ------------------------------------------------------------------
@@ -16,14 +24,6 @@
          (make-pathname :directory `(:relative ,conf-dir)
                         :name filename)
          (user-homedir-pathname))))
-
-#+:win32
-;; to "fix" USER-HOMEDIR-PATHNAME
-;; see <http://support.microsoft.com/default.aspx?scid=kb;en-us;101507>
-(setf (lw:environment-variable "HOMEPATH") "\\Users\\satok\\"
-      (lw:environment-variable "HOMEDRIVE") "Z:")
-
-(change-directory (user-homedir-pathname))
 
 ;;; Apply color theme.
 (load-init-file "lw-editor-color-theme\\editor-color-theme")

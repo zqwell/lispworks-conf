@@ -145,7 +145,10 @@ FASL version recompiles it."
 
 (defun asdf (lib)
   "Shortcut for ASDF."
-  (asdf:oos 'asdf:load-op lib))
+  #-quicklisp
+  (asdf:oos 'asdf:load-op lib)
+  #+quicklisp
+  (ql:quickload lib))
 
 ;; `canonical' indentation for IF
 (editor:setup-indent "if" 2 2 4)
@@ -155,7 +158,7 @@ FASL version recompiles it."
 
 ;; file types for Lisp mode
 (editor:define-file-type-hook 
-    ("lispworks" "lisp" "lsp" "cl" "asd")
+    ("lispworks" "lisp" "lsp" "cl" "asd" "ros")
     (buffer type)
   (declare (ignore type))
   (setf (editor:buffer-major-mode buffer) "Lisp"))
