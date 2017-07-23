@@ -36,19 +36,19 @@
 
 (editor:bind-key "Insert Parentheses For Selection" #\( :mode "Lisp")
 (editor:bind-key "Insert Double Quotes For Selection" #\" :mode "Lisp")
-;(editor:bind-key "Move Over ()" #\) :mode "Lisp")
+(editor:bind-key "Move Over ()" #\) :mode "Lisp")
 (editor:bind-key "Insert Parentheses For Selection" #\( :mode "Execute")
 (editor:bind-key "Insert Double Quotes For Selection" #\" :mode "Execute")
-;(editor:bind-key "Move Over ()" #\) :mode "Execute")
+(editor:bind-key "Move Over ()" #\) :mode "Execute")
 
 ;;;; (editor:bind-key "Indent New Line" "Return" :mode "Lisp")
 ;;;; (editor:bind-key "Insert \()" "Control-(" :mode "Lisp")
 ;;;; (editor:bind-key "Insert \()" "Control-(" :mode "Execute")
 
-;; (editor:bind-key "Kill Previous Word" "Control-Backspace")
-(editor:bind-key "Backward Kill Form" "Control-Backspace")
+(editor:bind-key "Kill Previous Word" "Control-Backspace")
+(editor:bind-key "Backward Kill Form" "Meta-Backspace")
 
-(editor:bind-key "Go Back" "Shift-Backspace")
+(editor:bind-key "Go Back" "Meta-,")
 (editor:bind-key "Select Go Back" #("Control-c" "Backspace"))
 
 (editor:bind-key "Macroexpand Form" #("Control-c" "Return"))
